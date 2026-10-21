@@ -413,7 +413,7 @@ fun sendGoalNotification(context: Context, title: String, message: String) {
     val notification = NotificationCompat.Builder(context, "srhv_channel")
         .setSmallIcon(android.R.drawable.ic_dialog_info)
         .setContentTitle(title)
-        .setContentTest(message)
+        .setContentText(message) // <-- Hier von setContentTest zu setContentText geändert
         .setPriority(NotificationCompat.PRIORITY_HIGH)
         .setAutoCancel(true)
         .build()

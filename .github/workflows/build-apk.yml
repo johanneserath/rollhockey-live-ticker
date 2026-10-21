@@ -21,7 +21,10 @@ jobs:
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
 
-    - name: Build with Gradle (Global)
+    - name: Accept Android SDK Licenses
+      run: yes | sdkmanager --licenses || true
+
+    - name: Build with Gradle
       run: gradle assembleRelease
 
     - name: Upload APK Artifact

@@ -15,13 +15,12 @@ import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.NotificationsActive
@@ -32,7 +31,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -97,7 +95,7 @@ fun RollhockeyApp() {
         contract = ActivityResultContracts.RequestPermission(),
         onResult = {}
     )
-    
+
     LaunchedEffect(Unit) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS)
@@ -183,7 +181,11 @@ fun RollhockeyApp() {
     ) { padding ->
         if (selectedDetailUrl != null) {
             BackHandler { selectedDetailUrl = null }
-            DetailWebView(url = selectedDetailUrl!!, onBack = { selectedDetailUrl = null }, modifier = Modifier.padding(padding))
+            DetailWebView(
+                url = selectedDetailUrl!!,
+                onBack = { selectedDetailUrl = null },
+                modifier = Modifier.padding(padding)
+            )
         } else {
             Box(modifier = Modifier.fillMaxSize().padding(padding)) {
                 if (isLoading && matches.isEmpty()) {
@@ -413,7 +415,7 @@ fun sendGoalNotification(context: Context, title: String, message: String) {
     val notification = NotificationCompat.Builder(context, "srhv_channel")
         .setSmallIcon(android.R.drawable.ic_dialog_info)
         .setContentTitle(title)
-        .setContentText(message) // <-- Hier von setContentTest zu setContentText geändert
+        .setContentText(message)
         .setPriority(NotificationCompat.PRIORITY_HIGH)
         .setAutoCancel(true)
         .build()
